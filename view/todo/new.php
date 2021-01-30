@@ -6,6 +6,19 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
   $controller->new();
   exit;
 }
+
+$title = '';
+$detail = '';
+if($_SERVER["REQUEST_METHOD"] === "GET") {
+    if(isset($_GET['title'])) {
+      $title = $_GET['title'];
+    }
+    if(isset($_GET['detail'])) {
+      $detail = $_GET['detail'];
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -18,13 +31,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <div>
       <div>タイトル</div>
       <div>
-        <input name="title" type="text">
+        <input name="title" type="text" value="<?php echo $title;?>">
       </div>
     </div>
     <div>
       <div>詳細</div>
       <div>
-        <textarea name="detail"></textarea>
+        <textarea name="detail"><?php echo $detail;?></textarea>
       </div>
     </div>
     <button type="submit">登録</button>

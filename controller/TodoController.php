@@ -17,10 +17,18 @@ class TodoController {
     $title = $_POST['title'];
     $detail = $_POST['detail'];
 
-    $todo = new Todo;
-    $todo->setTitle($title);
-    $todo->setDetail($detail);
-    $result = $todo->save();
+    // $todo = new Todo;
+    // $todo->setTitle($title);
+    // $todo->setDetail($detail);
+    // $result = $todo->save();
+
+    $result = false;
+    if($result === false) {
+      $params = sprintf("?title=%s&detail=%s", $title, $detail);
+      header(sprintf("location: ./new.php%s", $params));
+      return;
+    }
+      header("location: ./index.php");
 
   }
 }

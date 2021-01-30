@@ -1,6 +1,7 @@
 <?php
 
 require_once '../../config/database.php';
+// require_once '../../view/todo/index.php';
 
 class Todo {
   public $title;
@@ -65,8 +66,11 @@ class Todo {
                  $this->detail
                );
     $dbh = new PDO(DSN,USERNAME,PASSWORD);
-    var_dump($dbh);
-    $result = $dbh->query($query);
+    $stmh = $dbh->prepare($query);
+    $result = $stmh->execute();
+
+    return $result;
+
     
   }
 
