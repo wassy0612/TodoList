@@ -38,17 +38,6 @@ $todo_list = $action->index();
   <div>
     <a href="./new.php">新規作成</a>
   </div>
-  <div>
-    <ul>
-      <?php foreach($todo_list as $todo):?>
-        <li>
-          <a href="./new.php?todo_id=<?php echo $todo['id'];?>">
-            <?php echo $todo['title'];?>
-          </a>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
 
 </body>
 </html>

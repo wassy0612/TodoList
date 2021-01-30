@@ -2,8 +2,9 @@
 require_once '../../controller/TodoController.php';
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
-  $action = new TodoController;
-  $action->new();
+  $controller = new TodoController();
+  $controller->new();
+  exit;
 }
 ?>
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <div>
       <div>タイトル</div>
       <div>
-        <input name="title" type="title" type="text">
+        <input name="title" type="text">
       </div>
     </div>
     <div>
