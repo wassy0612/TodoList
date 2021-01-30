@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+require_once '../../config/database.php';
+
 class Todo {
   public $title;
   public $detail;
@@ -62,8 +65,10 @@ class Todo {
                  $this->detail
                );
     $dbh = new PDO(DSN,USERNAME,PASSWORD);
-    $result = $pdo->query($query);
+    var_dump($dbh);
+    $result = $dbh->query($query);
     
   }
+
 }
  ?>

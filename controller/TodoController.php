@@ -20,7 +20,7 @@ class TodoController {
     $todo = new Todo;
     $todo->setTitle($title);
     $todo->setDetail($detail);
-    $todo->save();
+    $result = $todo->save();
 
   }
 }
