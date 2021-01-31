@@ -18,6 +18,9 @@ if($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 }
 
+session_start();
+$error_msgs = $_SESSION['error_msgs'];
+unset($_SESSION['error_msgs']);
 
 ?>
 <!DOCTYPE html>
@@ -42,8 +45,16 @@ if($_SERVER["REQUEST_METHOD"] === "GET") {
     </div>
     <button type="submit">登録</button>
   </form>
+  <?php if($error_msgs): ?>
+    <div>
+      <ul>
+        <?php foreach ($error_msgs as $error_msg): ?>
+          <li><?php echo $error_msg;?></li>
+        <?php endforeach;?>
+      </ul>
+    </div>
+  <?endif;?>
 </head>
 <body>
-  
 </body>
 </html>
