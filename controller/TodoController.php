@@ -10,8 +10,8 @@ class TodoController {
   }
   public function detail() {
       $todo_id = $_GET['todo_id'];
-
       $todo = Todo::findById($todo_id);
+      var_dump($todo);
       return $todo;
   }
   public function new() {
@@ -43,7 +43,7 @@ class TodoController {
     $result = $todo->save();
 
     if($result === false) {
-      $params = sprintf("?title=%s&detail=%s", $title, $detail);
+      $params = sprintf("?title=%s&detail=%s", $valid_data['title'], $valid_data['detail']);
       header(sprintf("location: ./new.php%s", $params));
       return;
     }

@@ -28,10 +28,10 @@ unset($_SESSION['error_msgs']);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>新規作成</title>
+  <title>編集</title>
   <form action="./new.php" method="post">
     <div>
-      <div>新規作成</div>
+      <h1>編集</h1>
       <div>
         <input name="title" type="text" value="<?php echo $title;?>">
       </div>

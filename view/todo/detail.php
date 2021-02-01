@@ -5,6 +5,8 @@ require_once '../../controller/TodoController.php';
 
 $action = new TodoController;
 $todo_id = $action->detail();
+
+var_dump($todo_id);
  ?>
 
 <!DOCTYPE html>
@@ -19,11 +21,20 @@ $todo_id = $action->detail();
   <table class="table">
     <thead>
       <tr>
-        <th>タイトル</th>
-        <th>詳細</th>
+        <h1>タイトル</h1>
+        <th>詳細画面</th>
       </tr>
     </thead>
     <tbody>
+      <div>
+        <div>ステータス</div>
+        <div><?php echo $todo['display_status'];?></div>
+      </div>
+      <div>
+        <button>
+          <a href="./edit.php?todo_id=<?php echo $todo_id['id'];?>">編集</a>
+        </button>
+      </div>
       <tr>
         <td scope="row"><?php echo $todo_id['title'];?></td>
         <td><?php echo $todo_id['detail'];?></td>

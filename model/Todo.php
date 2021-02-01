@@ -56,18 +56,33 @@ class Todo {
              );
     $dbh = new PDO(DSN,USERNAME,PASSWORD);
     $stmh = $dbh->query($query);
-    return $stmh->fetch(PDO::FETCH_ASSOC);
+    $todo = $stmh->fetch(PDO::FETCH_ASSOC);
+
+    return $todo;
   }
 
   public function save() {
-    $query = sprintf("INSERT INTO `todos` (`title`,`detail`,`status`,`created_at`,`updated_at`) 
+    try {
+          $query = sprintf("INSERT INTO `todos` (`title`,`detail`,`status`,`created_at`,`updated_at`) 
                  VALUES ('%s','%s',0,NOW(),NOW())",
                  $this->title,
                  $this->detail
                );
-    $dbh = new PDO(DSN,USERNAME,PASSWORD);
-    $stmh = $dbh->prepare($query);
-    $result = $stmh->execute();
+          // todo
+          $dbh = new PDO(DSN,USERNAME,PASSWORD);
+          $$result = $dbh->prepare($query);
+
+    }catch(Exception $e) {
+        error_log("新規作成に失敗しました。");
+        error_log($e->getMessage());
+        error_log($e->getTraceAsString());
+
+        return false;
+    }
+
+
+
+
 
     return $result;
 
