@@ -6,7 +6,6 @@ require_once '../../controller/TodoController.php';
 $action = new TodoController;
 $todo_id = $action->detail();
 
-var_dump($todo_id);
  ?>
 
 <!DOCTYPE html>

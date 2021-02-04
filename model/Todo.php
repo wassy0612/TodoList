@@ -4,9 +4,19 @@ require_once '../../config/database.php';
 // require_once '../../view/todo/index.php';
 
 class Todo {
+  public $pdo;
+
   public $title;
   public $detail;
   public $status;
+
+  public function __construction() {
+    $this->dbConnect();
+  }
+
+  public function dbConnect() {
+    $this->pdo = new PDO(DSN,USERNAME,PASSWORD);
+  }
 
   public function getTitle(){
     return $this->title;
@@ -44,20 +54,18 @@ class Todo {
     $dbh = new PDO(DSN,USERNAME,PASSWORD);
     $query = "SELECT * FROM MyDatabase.todos";
     $stmh = $dbh->query($query);
-
     $result = $stmh->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   }
 
   public static function findById($todo_id) {
+    $dbh = new PDO(DSN,USERNAME,PASSWORD);
     $query = sprintf(
              'SELECT * FROM MyDatabase.todos where id = %s',
              $todo_id
              );
-    $dbh = new PDO(DSN,USERNAME,PASSWORD);
     $stmh = $dbh->query($query);
     $todo = $stmh->fetch(PDO::FETCH_ASSOC);
-
     return $todo;
   }
 
@@ -68,9 +76,9 @@ class Todo {
                  $this->title,
                  $this->detail
                );
-          // todo
+
           $dbh = new PDO(DSN,USERNAME,PASSWORD);
-          $$result = $dbh->prepare($query);
+          $result = $dbh->prepare($query);
 
     }catch(Exception $e) {
         error_log("新規作成に失敗しました。");
@@ -79,14 +87,35 @@ class Todo {
 
         return false;
     }
-
-
-
-
-
     return $result;
+  }
 
-    
+  public function update() {
+      $query = sprintf("UPDATE `todos` SET `title` = '%s', `detail` = '%s';",
+             $this->title,
+             $this->detail
+           );
+
+      $dbh = new PDO(DSN,USERNAME,PASSWORD);
+
+      try {
+        $dbh->beginTransaction();
+
+        $stmt = $dbh->prepare($query);
+        $stmt->execute();
+
+        //コミット
+        $dbh->commit();
+      } catch(PDOException $e) {
+
+        // ロールバック
+        $dbh->rollBack();
+
+        // エラーメッセージ出力
+        echo $e->getMessage();
+
+      }
+
   }
 
 }

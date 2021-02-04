@@ -11,7 +11,6 @@ class TodoController {
   public function detail() {
       $todo_id = $_GET['todo_id'];
       $todo = Todo::findById($todo_id);
-      var_dump($todo);
       return $todo;
   }
   public function new() {
@@ -48,6 +47,24 @@ class TodoController {
       return;
     }
       header("location: ./index.php");
+  }
+
+  public function edit() {
+    $todo_id = $_GET['todo_id'];
+
+    if($_SERVER['REQUEST_METHOD']!=="POST") {
+      $todo = Todo::findById($todo_id);
+      return $todo;
+    }
+
+    $title = $_POST['title'];
+    $detail = $_POST['detail'];
+
+
+    $todo = new Todo;
+    $todo->setTitle($title);
+    $todo->setDetail($detail);
+    $todo->update();
 
   }
 }
