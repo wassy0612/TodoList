@@ -42,6 +42,10 @@ class Todo {
     $this->status = $status;
   }
 
+  public function setId($id) {
+    $this->id = $id;
+  }
+
 
   public static function findByQuery($query) {
     $dbh = new PDO(DSN,USERNAME,PASSWORD);
@@ -115,6 +119,46 @@ class Todo {
         echo $e->getMessage();
 
       }
+
+  }
+
+  public static function isExistById($todo_id) {
+    $dbh = new PDO(DSN,USERNAME,PASSWORD);
+    $query = sprintf(
+             'SELECT * FROM MyDatabase.todos where id = %s',
+             $todo_id
+             );
+    $stmh = $dbh->query($query);
+
+    if(!$stmh) {
+      return false;
+      
+    }
+    return true;
+    
+  }
+  public function delete() {
+      $query = sprintf('DELETE FROM MyDatabase.todos where id = %s',$this->id);
+      $dbh = new PDO(DSN,USERNAME,PASSWORD);
+
+      try {
+        $dbh->beginTransaction();
+
+        $stmt = $dbh->prepare($query);
+        $result = $stmt->execute();
+        $dbh->commit();
+
+      } catch(PDOException $e) {
+        // ロールバック
+        $dbh->rollBack();
+
+        // エラーメッセージ出力
+        echo $e->getMessage();
+        $result = false;
+
+      }
+
+      return $result;
 
   }
 
