@@ -42,7 +42,7 @@ unset($_SESSION['error_msgs']);
         <textarea name="detail"><?php echo $todo['detail'];?></textarea>
       </div>
     </div>
-    <button class="update_btn" data-id="<?php echo $todo['id'];?>">
+    <button class="update_btn" data-title="<?php echo $todo['title'];?>">
       更新
     </button>
   </form>
@@ -59,7 +59,7 @@ unset($_SESSION['error_msgs']);
 </html>
 <script>
   $(".update_btn").on('click',function() {
-    const todo_id = $(this).data('id');
-    alert("ID " + todo_id + " を更新して大丈夫ですか？？");
+    const todo_title = $(this).data('title');
+    alert("タイトル " + todo_title + " を更新します");
   });
 </script>
