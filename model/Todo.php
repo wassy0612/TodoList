@@ -69,6 +69,7 @@ class Todo {
              );
     $stmh = $dbh->query($query);
     $todo = $stmh->fetch(PDO::FETCH_ASSOC);
+
     return $todo;
   }
 
@@ -98,9 +99,10 @@ class Todo {
 
   public function update() {
 
-      $query = sprintf("UPDATE `todos` SET `title` = '%s', `detail` = '%s';",
+      $query = sprintf("UPDATE `todos` SET `title` = '%s', `detail` = '%s' where `id` = '%s';",
              $this->title,
-             $this->detail
+             $this->detail,
+             $this->id
            );
 
       $dbh = new PDO(DSN,USERNAME,PASSWORD);
@@ -160,7 +162,6 @@ class Todo {
         $result = false;
 
       }
-
       return $result;
 
   }

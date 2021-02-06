@@ -8,13 +8,14 @@ session_start();
 $action = new TodoController;
 $todo = $action->edit();
 
+if($_SERVER['REQUEST_METHOD']=="POST") {
+  header("location: ./index.php");
+}
 
   // セッション情報の取得
 $error_msgs = $_SESSION['error_msgs'];
-
 //セッション削除
 unset($_SESSION['error_msgs']);
-
 
 ?>
 <!DOCTYPE html>
@@ -23,11 +24,12 @@ unset($_SESSION['error_msgs']);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <title>編集</title>
 </head>
 <body>
   <div>編集</div>
-  <form action="./index.php" method="POST">
+  <form method="POST">
     <div>
       <div>タイトル</div>
       <div>
@@ -40,7 +42,9 @@ unset($_SESSION['error_msgs']);
         <textarea name="detail"><?php echo $todo['detail'];?></textarea>
       </div>
     </div>
-    <button type="submit">更新</button>
+    <button class="update_btn" data-id="<?php echo $todo['id'];?>">
+      更新
+    </button>
   </form>
   <?php if($error_msgs): ?>
     <div>
@@ -53,3 +57,9 @@ unset($_SESSION['error_msgs']);
   <?endif;?>
 </body>
 </html>
+<script>
+  $(".update_btn").on('click',function() {
+    const todo_id = $(this).data('id');
+    alert("ID " + todo_id + " を更新して大丈夫ですか？？");
+  });
+</script>

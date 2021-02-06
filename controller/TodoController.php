@@ -60,14 +60,16 @@ class TodoController {
 
     $title = $_POST['title'];
     $detail = $_POST['detail'];
-
+    $id = $_GET['todo_id'];
 
     $todo = new Todo;
     $todo->setTitle($title);
     $todo->setDetail($detail);
+    $todo->setId($id);
     $todo->update();
 
   }
+
 
   public function delete() {
     $todo_id = $_GET['todo_id'];
