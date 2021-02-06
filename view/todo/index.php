@@ -1,13 +1,18 @@
 <?php
-// require_once '../../config/database.php';
 require_once '../../model/Todo.php';
 require_once '../../controller/TodoController.php';
 
+$action = new TodoController;
+$todo_list = $action->index();
 $pdo = new PDO(DSN,USERNAME,PASSWORD);
 $stmh = $pdo->query('SELECT * FROM todos');
 
-$action = new TodoController;
-$todo_list = $action->index();
+    if(isset($_GET['action']) && $_GET['action'] === 'delete') {
+      $action = new TodoController;
+      $todo_list =$action->delete();
+      header("location: ./index.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -19,22 +24,16 @@ $todo_list = $action->index();
   <title>TODOリスト</title>
 </head>
 <body>
-  <?php
-    if(isset($_GET['action']) && $_GET['action'] === 'delete') {
-      $action = new TodoController;
-      $todo_list =$action->delete();
-    }
-  ?>
   <div>
     <?php if($todo_list):?>
     <ul>
       <?php foreach($todo_list as $todo):?>
       <li>
         <a href="./detail.php?todo_id=<?php echo $todo['id'];?>">
-        <?php echo "[TITLE]"?>
-        <?php echo $todo['title'];?>
         <?php echo "[ID]"?>
         <?php echo $todo['id'];?>
+        <?php echo "[TITLE]"?>
+        <?php echo $todo['title'];?>
         </a>
         <button class="delete_btn" data-id="<?php echo $todo['id'];?>">
           削除

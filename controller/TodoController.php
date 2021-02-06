@@ -85,8 +85,7 @@ class TodoController {
       session_start();
       $_SESSION['error_msgs'] = [sprintf("削除に失敗しました。id=%s",$todo_id)];
     }
-
-    header("location: ./index.php");
+    
 
   }
 }
