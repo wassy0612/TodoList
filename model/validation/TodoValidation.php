@@ -19,6 +19,7 @@ class TodoValidation {
     $title = $this->data['title'];
     $detail = $this->data['detail'];
 
+
     if(empty($title)) {
         $this->$error_msgs[] = "タイトルが空です。";
     }

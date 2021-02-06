@@ -46,7 +46,6 @@ class Todo {
     $this->id = $id;
   }
 
-
   public static function findByQuery($query) {
     $dbh = new PDO(DSN,USERNAME,PASSWORD);
     $stmh = $dbh->query($query);
@@ -74,15 +73,18 @@ class Todo {
   }
 
   public function save() {
+    $query = sprintf("INSERT INTO `todos` (`title`,`detail`,`status`,`created_at`,`updated_at`) 
+       VALUES ('%s','%s',0,NOW(),NOW())",
+       $this->title,
+       $this->detail
+    );
+    $dbh = new PDO(DSN,USERNAME,PASSWORD);
     try {
-          $query = sprintf("INSERT INTO `todos` (`title`,`detail`,`status`,`created_at`,`updated_at`) 
-                 VALUES ('%s','%s',0,NOW(),NOW())",
-                 $this->title,
-                 $this->detail
-               );
+        $dbh->beginTransaction();
 
-          $dbh = new PDO(DSN,USERNAME,PASSWORD);
-          $result = $dbh->prepare($query);
+        $stmt = $dbh->prepare($query);
+        $result = $stmt->execute();
+        $dbh->commit();
 
     }catch(Exception $e) {
         error_log("新規作成に失敗しました。");
@@ -95,6 +97,7 @@ class Todo {
   }
 
   public function update() {
+
       $query = sprintf("UPDATE `todos` SET `title` = '%s', `detail` = '%s';",
              $this->title,
              $this->detail

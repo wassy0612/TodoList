@@ -53,7 +53,7 @@ $stmh = $pdo->query('SELECT * FROM todos');
 <script>
   $(".delete_btn").on('click',function() {
     const todo_id = $(this).data('id');
-    alert("id " + todo_id + " をイカせて大丈夫そ？");
+    alert("ID " + todo_id + " を削除して大丈夫ですか？？");
     window.location.href = "./index.php?action=delete&todo_id=" + todo_id;
   });
 </script>

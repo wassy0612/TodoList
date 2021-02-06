@@ -22,6 +22,7 @@ class TodoController {
 
     $validation = new TodoValidation;
     $validation->setData($data);
+
     if($validation->chech() === false) {
       $error_msgs = $validation->getErrorMessages();
 
@@ -85,8 +86,6 @@ class TodoController {
       session_start();
       $_SESSION['error_msgs'] = [sprintf("削除に失敗しました。id=%s",$todo_id)];
     }
-    
-
   }
 }
  ?>
