@@ -1,6 +1,7 @@
 <?php
 require_once '../../model/Todo.php';
 require_once '../../controller/TodoController.php';
+require_once '../../config/database.php';
 
 $action = new TodoController;
 $todo_list = $action->index();

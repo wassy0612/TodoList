@@ -20,15 +20,10 @@ $todo_id = $action->detail();
   <table class="table">
     <thead>
       <tr>
-        <h1>タイトル</h1>
-        <th>詳細画面</th>
+        <h1>詳細画面</h1>
       </tr>
     </thead>
     <tbody>
-      <div>
-        <div>ステータス</div>
-        <div><?php echo $todo['display_status'];?></div>
-      </div>
       <div>
         <button>
           <a href="./edit.php?todo_id=<?php echo $todo_id['id'];?>">編集</a>
