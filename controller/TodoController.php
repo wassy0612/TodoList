@@ -20,8 +20,10 @@ class TodoController {
         "detail" => $_POST['detail']
     );
 
+
     $validation = new TodoValidation;
     $validation->setData($data);
+
 
     if($validation->chech() === false) {
       $error_msgs = $validation->getErrorMessages();
@@ -29,9 +31,11 @@ class TodoController {
       session_start();
       $_SESSION['error_msgs'] = $error_msgs;
 
-
       $params = sprintf("?title=%s&detail=%s", $_POST['title'], $_POST['detail']);
       header(sprintf("location: ./new.php%s", $params));
+
+      var_dump($params);
+      exit;
     }
 
     $valid_data = $validation->getData();
